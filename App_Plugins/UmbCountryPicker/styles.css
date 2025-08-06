@@ -1,0 +1,59 @@
+.dropdown-container {
+    width: 50%;
+}
+
+.dropdown:hover {
+    border-color: #a1a1a1;
+    cursor: pointer;
+}
+
+.dropdown:active{
+    border-color: #3544b1;
+}
+
+.dropdown {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #d8d7d9;
+    
+    & span {
+        padding: 5px;
+        position: absolute;
+        right: 0;
+    }
+}
+
+.dropdown-container:hover, #country-search {
+    cursor: pointer;
+}
+
+#country-search {
+    width: 100%;
+}
+
+.dropdown-arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    vertical-align: middle;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #666;
+}
+
+.countries {
+    margin-left: 0;
+    list-style-type: none;
+    cursor: pointer;
+    background: #f7f7f7;
+}
+
+.country {
+    padding: 8px 10px 8px 10px;    
+}
+
+.country:hover {
+    background-color: lightgray;
+}

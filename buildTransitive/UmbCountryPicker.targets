@@ -1,0 +1,21 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <UmbCountryPickerContentFilesPath>$(MSBuildThisFileDirectory)..\App_Plugins\UmbCountryPicker\**\*.*</UmbCountryPickerContentFilesPath>
+  </PropertyGroup>
+
+  <Target Name="CopyUmbCountryPickerAssets" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <UmbCountryPickerContentFiles Include="$(UmbCountryPickerContentFilesPath)" />
+    </ItemGroup>
+    <Message Text="Copying UmbCountryPicker files: $(UmbCountryPickerContentFilesPath) - #@(UmbCountryPickerContentFiles->Count()) files" Importance="high" />
+    <Copy SourceFiles="@(UmbCountryPickerContentFiles)" DestinationFiles="@(UmbCountryPickerContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\UmbCountryPicker\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="ClearUmbCountryPickerAssets" BeforeTargets="Clean">
+    <ItemGroup>
+      <UmbCountryPickerDir Include="$(MSBuildProjectDirectory)\App_Plugins\UmbCountryPicker\" />
+    </ItemGroup>
+    <Message Text="Clear old UmbCountryPicker data" Importance="high" />
+    <RemoveDir Directories="@(UmbCountryPickerDir)" />
+  </Target>
+</Project>

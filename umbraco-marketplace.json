@@ -1,0 +1,47 @@
+{
+    "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+    "AddOnPackagesRequiredForUmbracoCloud": [],
+    "AlternateCategory": "Editor Tools",
+    "AuthorDetails": {
+      "Name": "André",
+      "Description": "A webdeveloper who dabbles in front-end, Umbraco and .NET development.",
+      "Url": "",
+      "ImageUrl": "https://avatars.githubusercontent.com/u/2794633?v=4",
+      "Contributors": [
+        {
+          "Name": "",
+          "Url": ""
+        }
+      ],
+      "SyncContributorsFromRepository": true|false
+    },
+    "Category": "Developer Tools",
+    "Description": "A package that provides a custom property editor for choosing countries.",
+    "DiscussionForumUrl": "https://github.com/HamDerAndrew/UmbCountryPicker/discussions",
+    "DocumentationUrl": "",
+    "LicenseTypes": [ "Free" ],
+    "IssueTrackerUrl": "https://github.com/HamDerAndrew/UmbCountryPicker/issues",
+    "IsSubPackageOf": "",
+    "PackageType": "Package",
+    "PackagesByAuthor": [],
+    "RelatedPackages": [
+      {
+        "GroupTitle": "",
+        "PackageId": "",
+        "Description": ""
+      }
+    ],
+    "Screenshots": [
+
+    ],
+    "Tags": ["CountryPicker", "EarthCountryPicker", "Country Picker"],
+    "Title": "Umb Country Picker",
+    "VersionDependencyMode": "Default",
+    "VersionSpecificPackageIds": [
+      {
+        "UmbracoMajorVersion": 13,
+        "PackageId": "UmbCountryPicker"
+      }
+    ],
+    "VideoUrl": ""
+  }

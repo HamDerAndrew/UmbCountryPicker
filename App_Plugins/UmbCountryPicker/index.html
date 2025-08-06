@@ -1,0 +1,19 @@
+<div ng-controller="UmbCountryPickerController">
+    <div class="dropdown-container" ng-keydown="model.countryKeyDown($event)">
+        <div class="dropdown" ng-click="model.showCountriesList()">
+            <input ng-value="model.getSelectedCountryName()" type="search" id="country-search" name="country-search" />
+            <span><i class="dropdown-arrow"></i></span>
+        </div>
+        <ul class="countries" ng-show="model.showCountries">
+            <li class="country"
+                ng-repeat="item in model.countries | orderBy:'CountryName'"
+                ng-click="model.value = item.Id; model.onCountrySelect()">
+                {{item.CountryName}}
+            </li>
+        </ul>
+    </div>
+<!--    <label for="countryPicker">Country Picker</label>-->
+<!--    <select id="countryPicker" ng-model="model.value" ng-options="item.Id as item.CountryName for item in model.countries">-->
+<!--        <option>{{model.value}}</option>-->
+<!--    </select>-->
+</div>
