@@ -19,6 +19,7 @@
   <ItemGroup>
     <PackageReference Include="Umbraco.Cms.Web.Website" Version="13.8.1" />
     <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="13.8.1" />
+    <PackageReference Include="EarthCountriesInfo" Version="4.0.0" />
     <None Include="README.md" Pack="true" PackagePath=""/>
 	  <None Include="LICENSE" Pack="true" PackagePath=""/>
   </ItemGroup>
