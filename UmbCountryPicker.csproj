@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <Version>13.8.4</Version>
     <PackageId>UmbCountryPicker</PackageId>
     <Product>UmbCountryPicker</Product>
     <Title>UmbCountryPicker</Title>
