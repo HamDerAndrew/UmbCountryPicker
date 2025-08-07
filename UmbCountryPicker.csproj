@@ -13,11 +13,17 @@
     <PackageId>UmbCountryPicker</PackageId>
     <Product>UmbCountryPicker</Product>
     <Title>UmbCountryPicker</Title>
-    <Description>...</Description>
+    <Description>A property editor for Umbraco CMS. It let's you pick a country from a list of countries.</Description>
     <PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
     <PackageProjectUrl>https://github.com/HamDerAndrew/UmbCountryPicker</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HamDerAndrew/UmbCountryPicker</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Umbraco.Cms.Web.Website" Version="13.8.1" />
