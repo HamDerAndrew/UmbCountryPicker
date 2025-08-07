@@ -13,7 +13,9 @@
     <Product>UmbCountryPicker</Product>
     <Title>UmbCountryPicker</Title>
     <Description>...</Description>
-    <PackageTags>umbraco plugin package</PackageTags>
+    <PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
+    <PackageProjectUrl>https://github.com/HamDerAndrew/UmbCountryPicker</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HamDerAndrew/UmbCountryPicker</RepositoryUrl>
   </PropertyGroup>
   
   <ItemGroup>

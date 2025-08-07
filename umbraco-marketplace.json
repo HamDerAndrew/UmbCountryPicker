@@ -5,14 +5,8 @@
     "AuthorDetails": {
       "Name": "André",
       "Description": "A webdeveloper who dabbles in front-end, Umbraco and .NET development.",
-      "Url": "",
+      "Url": "https://github.com/HamDerAndrew",
       "ImageUrl": "https://avatars.githubusercontent.com/u/2794633?v=4",
-      "Contributors": [
-        {
-          "Name": "",
-          "Url": ""
-        }
-      ],
       "SyncContributorsFromRepository": true|false
     },
     "Category": "Developer Tools",
@@ -26,9 +20,9 @@
     "PackagesByAuthor": [],
     "RelatedPackages": [
       {
-        "GroupTitle": "",
-        "PackageId": "",
-        "Description": ""
+        "GroupTitle": "UmbTimeOnly",
+        "PackageId": "UmbTimeOnly",
+        "Description": "A property editor for picking the time only"
       }
     ],
     "Screenshots": [
