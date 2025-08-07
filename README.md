@@ -36,22 +36,22 @@ The perfect dropdown for selecting countries in your Content Editor interface!
 
 ## Screenshots & Localization Examples
 As an example let's say this is your template code(sprinkled with a bit of CSS):
-![UmbCountryPicker](./screenshots/code-example.png)
+![code-example](https://raw.githubusercontent.com/HamDerAndrew/UmbCountryPicker/main/screenshots/code-example.png)
+
 
 #### Let's look closer at how the content editor will interact with this and see the output
 
 * **Content Editor View**
-![UmbCountryPicker](./screenshots/content.png)
-
+![content](https://raw.githubusercontent.com/HamDerAndrew/UmbCountryPicker/main/screenshots/content.png)
 * **Frontend Display**
-![UmbCountryPicker](./screenshots/frontend.png)
+![frontend](https://raw.githubusercontent.com/HamDerAndrew/UmbCountryPicker/main/screenshots/frontend.png)
 
 * **Backoffice Localization**
 
   * Default (en-US)
-  ![UmbCountryPicker](./screenshots/backoffice-language-default-open.png)
+  ![code-example](https://raw.githubusercontent.com/HamDerAndrew/UmbCountryPicker/main/screenshots/backoffice-language-default-open.png)
   * Danish (da): Shows dropdown labeled in Danish.
-  ![UmbCountryPicker](./screenshots/backoffice-language-danish-open.png)
+  ![code-example](https://raw.githubusercontent.com/HamDerAndrew/UmbCountryPicker/main/screenshots/backoffice-language-danish-open.png)
 
 
 ---

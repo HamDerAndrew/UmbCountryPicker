@@ -1,6 +1,6 @@
 {
         "name": "UmbCountryPicker",
-        "version": "13.8.6",
+        "version": "13.8.7",
         "allowPackageTelemetry": true,
         "propertyEditors": [
         {
