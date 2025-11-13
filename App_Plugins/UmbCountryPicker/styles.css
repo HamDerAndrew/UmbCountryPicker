@@ -18,11 +18,11 @@
     border: 1px solid #d8d7d9;
 }
 
-    .dropdown span {
-        padding: 5px;
-        position: absolute;
-        right: 0;
-    }
+.dropdown span {
+    padding: 5px;
+    position: absolute;
+    right: 0;
+}
 
 .dropdown-container:hover, #country-search {
     cursor: pointer;
