@@ -7,7 +7,7 @@
     cursor: pointer;
 }
 
-.dropdown:active{
+.dropdown:active {
     border-color: #3544b1;
 }
 
@@ -16,13 +16,13 @@
     justify-content: flex-start;
     align-items: center;
     border: 1px solid #d8d7d9;
-    
-    & span {
+}
+
+    .dropdown span {
         padding: 5px;
         position: absolute;
         right: 0;
     }
-}
 
 .dropdown-container:hover, #country-search {
     cursor: pointer;
@@ -51,9 +51,9 @@
 }
 
 .country {
-    padding: 8px 10px 8px 10px;    
+    padding: 8px 10px 8px 10px;
 }
 
-.country:hover {
-    background-color: lightgray;
-}
+    .country:hover {
+        background-color: lightgray;
+    }
