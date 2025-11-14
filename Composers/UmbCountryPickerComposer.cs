@@ -16,15 +16,13 @@ public class UmbCountryPickerComposer : IComposer
         {
             var env = provider.GetRequiredService<IWebHostEnvironment>();
 
-            // 1. Try appsettings.json
+            // Try appsettings.json
             var appsettingsConfig = provider.GetService<IOptions<UmbCountryPickerConfig>>()?.Value;
             if (appsettingsConfig != null &&
                 (appsettingsConfig.Overrides.Renames.Any() || appsettingsConfig.Overrides.Additions.Any()))
-            {
                 return appsettingsConfig;
-            }
 
-            // 2. Try external override file 
+            // Try external override file 
             var overrideFile = Path.Combine(env.ContentRootPath, "umbraco-country-overrides.json");
             if (File.Exists(overrideFile))
             {
@@ -40,7 +38,7 @@ public class UmbCountryPickerComposer : IComposer
                     return fileConfig;
             }
 
-            // 3. Fallback: no overrides
+            // Fallback: no overrides
             return new UmbCountryPickerConfig();
         });
     }

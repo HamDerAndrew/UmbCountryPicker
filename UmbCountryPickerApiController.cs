@@ -20,7 +20,7 @@ public sealed class UmbCountryPickerApiController : UmbracoAuthorizedJsonControl
 
     public IEnumerable<DropdownItemDTO> GetKeyValueList(string languageIsoCodeString = "en")
     {
-        LanguageIsoCode languageIsoCode = HumanHelper.CreateLanguageIsoCode(languageIsoCodeString);
+        var languageIsoCode = HumanHelper.CreateLanguageIsoCode(languageIsoCodeString);
 
         var list = Countries.CountryPropertiesDictionary.Select(kvp =>
         {
@@ -45,26 +45,18 @@ public sealed class UmbCountryPickerApiController : UmbracoAuthorizedJsonControl
         foreach (var rename in _config.Overrides.Renames)
         {
             var item = list.FirstOrDefault(x => x.Id.Equals(rename.Code, StringComparison.OrdinalIgnoreCase));
-            if (item != null)
-            {
-                item.CountryName = rename.Name;
-            }
+            if (item != null) item.CountryName = rename.Name;
         }
 
         // Add missing countries
         foreach (var add in _config.Overrides.Additions)
-        {
             if (!list.Any(x => x.Id.Equals(add.Code, StringComparison.OrdinalIgnoreCase)))
-            {
                 list.Add(new DropdownItemDTO
                 {
                     Id = add.Code,
                     CountryName = add.Name
                 });
-            }
-        }
 
         return list.OrderBy(x => x.CountryName);
     }
-
 }
