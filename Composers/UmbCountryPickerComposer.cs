@@ -5,7 +5,7 @@ using UmbCountryPicker.Models;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 
-namespace UmbCountryPicker;
+namespace UmbCountryPicker.Composers;
 
 public class UmbCountryPickerComposer : IComposer
 {
