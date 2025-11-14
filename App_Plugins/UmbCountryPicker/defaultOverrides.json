@@ -1,34 +1,32 @@
 {
-  "UmbCountryPicker": {
-    "Overrides": {
-      "Renames": [
-        {
-          "Code": "IN",
-          "Name": "India"
-        },
-        {
-          "Code": "BN",
-          "Name": "Brunei"
-        }
-      ],
-      "Additions": [
-        {
-          "Code": "HR",
-          "Name": "Croatia"
-        },
-        {
-          "Code": "RS",
-          "Name": "Serbia"
-        },
-        {
-          "Code": "ME",
-          "Name": "Montenegro"
-        },
-        {
-          "Code": "CI",
-          "Name": "Côte d'Ivoire"
-        }
-      ]
-    }
+  "Overrides": {
+    "Renames": [
+      {
+        "Code": "IN",
+        "Name": "India"
+      },
+      {
+        "Code": "BN",
+        "Name": "Brunei"
+      }
+    ],
+    "Additions": [
+      {
+        "Code": "HR",
+        "Name": "Croatia"
+      },
+      {
+        "Code": "RS",
+        "Name": "Serbia"
+      },
+      {
+        "Code": "ME",
+        "Name": "Montenegro"
+      },
+      {
+        "Code": "CI",
+        "Name": "Côte d'Ivoire"
+      }
+    ]
   }
 }
