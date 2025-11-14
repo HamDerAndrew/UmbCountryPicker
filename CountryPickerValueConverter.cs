@@ -4,48 +4,56 @@ using Umbraco.Cms.Core.PropertyEditors;
 
 namespace UmbCountryPicker;
 
-public class CountryPickerValueConverter : IPropertyValueConverter
+[DefaultPropertyValueConverter]
+public class CountryPickerValueConverter : PropertyValueConverterBase
 {
     public bool IsConverter(IPublishedPropertyType propertyType)
-        => propertyType.EditorAlias == "UmbCountryPicker";
-
-    // 1️1. Convert the raw DB value (string "ISO") → intermediate CountryIsoCode enum
-    public object? ConvertSourceToIntermediate(IPublishedElement owner,
-        IPublishedPropertyType propertyType, object? source, bool preview)
     {
-        if (source == null) return null;
-
-        // source might come in as JValue or plain string; normalize to a C# string
-        var str = source as string ?? source.ToString()!;
-        str = str.Trim('"'); // in case it’s quoted JSON
-
-        // TryParse into your enum; if it fails, return null
-        if (Enum.TryParse<CountryIsoCode>(str, ignoreCase: true, out var parsed))
-            return parsed;
-
-        return null;
+        return propertyType.EditorAlias == "UmbCountryPicker";
     }
-
-    // 2️2. Umbraco will pass your intermediate (`parsed`) here.
-    //    Since it's already the enum, just return it.
-    public object? ConvertIntermediateToObject(IPublishedElement owner,
-        IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel,
-        object? inter, bool preview)
-    {
-        return inter;
-    }
-
-    public object? ConvertIntermediateToXPath(IPublishedElement owner,
-        IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel,
-        object? inter, bool preview)
-        => throw new NotSupportedException();
-
-    public PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
-        => PropertyCacheLevel.Element;
 
     public Type GetPropertyValueType(IPublishedPropertyType propertyType)
-        => typeof(CountryIsoCode);
+    {
+        return typeof(string);
+    }
 
-    public bool? IsValue(object? value, PropertyValueLevel level)
-        => value is CountryIsoCode;
+    public PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
+    {
+        return PropertyCacheLevel.Element;
+    }
+
+    public object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType,
+        object source, bool preview)
+    {
+        // normalise the stored value
+        var str = source.ToString()?.Trim('"').Trim();
+        if (string.IsNullOrWhiteSpace(str))
+            return null;
+
+        // Try enum for standard ISO codes
+        if (Enum.TryParse<CountryIsoCode>(str, true, out var parsed))
+            // intermediate value is enum
+            return parsed;
+
+        // Fallback: custom or unknown ISO codes (e.g. CI, ME, HR, RS)
+        return str;
+    }
+
+    public object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType,
+        PropertyCacheLevel referenceCacheLevel, object intermediate, bool preview)
+    {
+        // If enum, return code string
+        if (intermediate is CountryIsoCode enumValue)
+            return enumValue.ToString();
+
+        // If string, return as is
+        return intermediate.ToString();
+    }
+
+    public object? ConvertIntermediateToXPath(IPublishedElement owner, IPublishedPropertyType propertyType,
+        PropertyCacheLevel referenceCacheLevel, object intermediate, bool preview)
+    {
+        // XPath gets the same value as the frontend: string ISO code
+        return ConvertIntermediateToObject(owner, propertyType, referenceCacheLevel, intermediate, preview);
+    }
 }

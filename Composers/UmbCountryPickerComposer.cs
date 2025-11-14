@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using UmbCountryPicker.Models;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
@@ -13,20 +14,34 @@ public class UmbCountryPickerComposer : IComposer
     {
         builder.Services.AddSingleton(provider =>
         {
-            var env = provider.GetService<IWebHostEnvironment>();
-            var configPath = Path.Combine(
-                env.ContentRootPath,
-                "App_Plugins",
-                "UmbCountryPicker",
-                "defaultOverrides.json");
+            var env = provider.GetRequiredService<IWebHostEnvironment>();
 
-            if (!File.Exists(configPath))
-                return new UmbCountryPickerConfig(); // empty config, safe fallback
+            // 1. Try appsettings.json
+            var appsettingsConfig = provider.GetService<IOptions<UmbCountryPickerConfig>>()?.Value;
+            if (appsettingsConfig != null &&
+                (appsettingsConfig.Overrides.Renames.Any() || appsettingsConfig.Overrides.Additions.Any()))
+            {
+                return appsettingsConfig;
+            }
 
-            var json = File.ReadAllText(configPath);
+            // 2. Try external override file 
+            var overrideFile = Path.Combine(env.ContentRootPath, "umbraco-country-overrides.json");
+            if (File.Exists(overrideFile))
+            {
+                var json = File.ReadAllText(overrideFile);
 
-            return JsonSerializer.Deserialize<UmbCountryPickerConfig>(json)
-                   ?? new UmbCountryPickerConfig();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var fileConfig = JsonSerializer.Deserialize<UmbCountryPickerConfig>(json, options);
+                if (fileConfig != null)
+                    return fileConfig;
+            }
+
+            // 3. Fallback: no overrides
+            return new UmbCountryPickerConfig();
         });
     }
 }
