@@ -1,22 +1,23 @@
 {
-        "name": "UmbCountryPicker",
-        "version": "13.8.8",
-        "allowPackageTelemetry": true,
-        "propertyEditors": [
-        {
-            "alias": "UmbCountryPicker",
-            "name": "UmbCountryPicker",
-            "icon": "icon-globe-europe-africa",
-            "editor": {
-                "view": "/App_Plugins/UmbCountryPicker/index.html",
-                "valueType": "string",
-            }
-        }
-        ],
-        "javascript": [
-            "/App_Plugins/UmbCountryPicker/index.js"
-        ],
-        "css": [
-        "/App_Plugins/UmbCountryPicker/styles.css"
-        ],
+  "name": "UmbCountryPicker",
+  "version": "13.8.8",
+  "allowPackageTelemetry": true,
+  "propertyEditors": [
+    {
+      "alias": "UmbCountryPicker",
+      "name": "UmbCountryPicker",
+      "icon": "icon-globe-europe-africa",
+      "editor": {
+        "view": "/App_Plugins/UmbCountryPicker/index.html",
+        "valueType": "string"
+      }
+    }
+  ],
+  "javascript": [
+    "/App_Plugins/UmbCountryPicker/index.js"
+  ],
+  "css": [
+    "/App_Plugins/UmbCountryPicker/styles.css"
+  ],
+  "assembly": "UmbCountryPicker"
 }
