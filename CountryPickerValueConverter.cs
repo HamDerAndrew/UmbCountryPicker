@@ -1,53 +1,59 @@
-using System;
 using EarthCountriesInfo;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
 
-namespace UmbCountryPicker_v13
+namespace UmbCountryPicker;
+
+[DefaultPropertyValueConverter]
+public class CountryPickerValueConverter : PropertyValueConverterBase
 {
-    public class CountryPickerValueConverter : IPropertyValueConverter
+    public bool IsConverter(IPublishedPropertyType propertyType)
     {
-        public bool IsConverter(IPublishedPropertyType propertyType)
-            => propertyType.EditorAlias == "UmbCountryPicker";
+        return propertyType.EditorAlias == "UmbCountryPicker";
+    }
 
-        // 1️1. Convert the raw DB value (string "ISO") → intermediate CountryIsoCode enum
-        public object? ConvertSourceToIntermediate(IPublishedElement owner,
-            IPublishedPropertyType propertyType, object? source, bool preview)
-        {
-            if (source == null) return null;
+    public Type GetPropertyValueType(IPublishedPropertyType propertyType)
+    {
+        return typeof(string);
+    }
 
-            // source might come in as JValue or plain string; normalize to a C# string
-            var str = source as string ?? source.ToString()!;
-            str = str.Trim('"'); // in case it’s quoted JSON
+    public PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
+    {
+        return PropertyCacheLevel.Element;
+    }
 
-            // TryParse into your enum; if it fails, return null
-            if (Enum.TryParse<CountryIsoCode>(str, ignoreCase: true, out var parsed))
-                return parsed;
-
+    public object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType,
+        object source, bool preview)
+    {
+        // normalise the stored value
+        var str = source.ToString()?.Trim('"').Trim();
+        if (string.IsNullOrWhiteSpace(str))
             return null;
-        }
 
-        // 2️2. Umbraco will pass your intermediate (`parsed`) here.
-        //    Since it's already the enum, just return it.
-        public object? ConvertIntermediateToObject(IPublishedElement owner,
-            IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel,
-            object? inter, bool preview)
-        {
-            return inter;
-        }
+        // Try enum for standard ISO codes
+        if (Enum.TryParse<CountryIsoCode>(str, true, out var parsed))
+            // intermediate value is enum
+            return parsed;
 
-        public object? ConvertIntermediateToXPath(IPublishedElement owner,
-            IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel,
-            object? inter, bool preview)
-            => throw new NotSupportedException();
+        // Fallback: custom or unknown ISO codes (e.g. CI, ME, HR, RS)
+        return str;
+    }
 
-        public PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
-            => PropertyCacheLevel.Element;
+    public object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType,
+        PropertyCacheLevel referenceCacheLevel, object intermediate, bool preview)
+    {
+        // If enum, return code string
+        if (intermediate is CountryIsoCode enumValue)
+            return enumValue.ToString();
 
-        public Type GetPropertyValueType(IPublishedPropertyType propertyType)
-            => typeof(CountryIsoCode);
+        // If string, return as is
+        return intermediate.ToString();
+    }
 
-        public bool? IsValue(object? value, PropertyValueLevel level)
-            => value is CountryIsoCode;
+    public object? ConvertIntermediateToXPath(IPublishedElement owner, IPublishedPropertyType propertyType,
+        PropertyCacheLevel referenceCacheLevel, object intermediate, bool preview)
+    {
+        // XPath gets the same value as the frontend: string ISO code
+        return ConvertIntermediateToObject(owner, propertyType, referenceCacheLevel, intermediate, preview);
     }
 }
