@@ -7,7 +7,7 @@
       "Description": "A webdeveloper who dabbles in front-end, Umbraco and .NET development.",
       "Url": "https://github.com/HamDerAndrew",
       "ImageUrl": "https://avatars.githubusercontent.com/u/2794633?v=4",
-      "SyncContributorsFromRepository": true|false
+      "SyncContributorsFromRepository": true
     },
     "Category": "Developer Tools",
     "Description": "A package that provides a custom property editor for choosing countries.",
@@ -34,6 +34,10 @@
     "VersionSpecificPackageIds": [
       {
         "UmbracoMajorVersion": 13,
+        "PackageId": "UmbCountryPicker"
+      },
+      {
+        "UmbracoMajorVersion": 17,
         "PackageId": "UmbCountryPicker"
       }
     ],

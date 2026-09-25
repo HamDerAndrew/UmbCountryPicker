@@ -7,26 +7,29 @@ namespace UmbCountryPicker;
 [DefaultPropertyValueConverter]
 public class CountryPickerValueConverter : PropertyValueConverterBase
 {
-    public bool IsConverter(IPublishedPropertyType propertyType)
+    public override bool IsConverter(IPublishedPropertyType propertyType)
     {
-        return propertyType.EditorAlias == "UmbCountryPicker";
+        // Umbraco's v13 -> v14 migration moves the old package.manifest alias onto the Data Type's
+        // EditorUiAlias and rewrites EditorAlias to the core schema (Umbraco.Plain.String), so the
+        // UI alias is what identifies this property editor from v14 onwards.
+        return propertyType.EditorUiAlias == "UmbCountryPicker";
     }
 
-    public Type GetPropertyValueType(IPublishedPropertyType propertyType)
+    public override Type GetPropertyValueType(IPublishedPropertyType propertyType)
     {
         return typeof(string);
     }
 
-    public PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
+    public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
     {
         return PropertyCacheLevel.Element;
     }
 
-    public object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType,
-        object source, bool preview)
+    public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType,
+        object? source, bool preview)
     {
         // normalise the stored value
-        var str = source.ToString()?.Trim('"').Trim();
+        var str = source?.ToString()?.Trim('"').Trim();
         if (string.IsNullOrWhiteSpace(str))
             return null;
 
@@ -39,21 +42,14 @@ public class CountryPickerValueConverter : PropertyValueConverterBase
         return str;
     }
 
-    public object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType,
-        PropertyCacheLevel referenceCacheLevel, object intermediate, bool preview)
+    public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType,
+        PropertyCacheLevel referenceCacheLevel, object? inter, bool preview)
     {
         // If enum, return code string
-        if (intermediate is CountryIsoCode enumValue)
+        if (inter is CountryIsoCode enumValue)
             return enumValue.ToString();
 
         // If string, return as is
-        return intermediate.ToString();
-    }
-
-    public object? ConvertIntermediateToXPath(IPublishedElement owner, IPublishedPropertyType propertyType,
-        PropertyCacheLevel referenceCacheLevel, object intermediate, bool preview)
-    {
-        // XPath gets the same value as the frontend: string ISO code
-        return ConvertIntermediateToObject(owner, propertyType, referenceCacheLevel, intermediate, preview);
+        return inter?.ToString();
     }
 }

@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# NuGet pack output from local `dotnet pack -o ./artifacts`
+/artifacts/

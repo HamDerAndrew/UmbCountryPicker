@@ -1,0 +1,21 @@
+{
+  "$schema": "../../umbraco-package-schema.json",
+  "id": "UmbCountryPicker",
+  "name": "UmbCountryPicker",
+  "version": "17.0.0",
+  "allowTelemetry": true,
+  "extensions": [
+    {
+      "type": "propertyEditorUi",
+      "alias": "UmbCountryPicker",
+      "name": "Country Picker",
+      "element": "/App_Plugins/UmbCountryPicker/country-picker.js",
+      "meta": {
+        "label": "Country Picker",
+        "propertyEditorSchemaAlias": "Umbraco.Plain.String",
+        "icon": "icon-globe-europe-africa",
+        "group": "pickers"
+      }
+    }
+  ]
+}
