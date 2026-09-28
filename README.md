@@ -5,6 +5,18 @@ The perfect dropdown for selecting countries in your Content Editor interface!
 
 ---
 
+## Umbraco compatibility
+
+| Umbraco CMS | Package version | Notes                                        |
+| ----------- | --------------- | -------------------------------------------- |
+| 17 (LTS)    | 17.x            | .NET 10, new backoffice (Web Components/Lit) |
+| 13 (LTS)    | 13.x            | .NET 8, AngularJS backoffice                 |
+
+Existing content survives the upgrade: when a site moves from Umbraco 13 to 17, the Data Type keeps
+its `UmbCountryPicker` editor UI alias and its stored ISO codes are unchanged.
+
+---
+
 ## Why Use UmbCountryPicker?
 
 * **Intuitive UI**: Provides a simple dropdown that lists countries for content editors.
@@ -60,8 +72,23 @@ As an example let's say this is your template code(sprinkled with a bit of CSS):
 
 UmbCountryPicker works by pulling in countries via ISO standards from its internally stored list and displays them in the appropriate culture. It includes:
 
-* A manifest and UI component (JavaScript or Razor).
+* An `umbraco-package.json` manifest and a Lit-based web component (`client/src/country-picker.element.ts`, bundled to `wwwroot/country-picker.js`).
+* A backoffice Management API endpoint at `/umbraco/management/api/v1/country-picker/countries` that serves the localized list.
 * A value converter (e.g., `CountryPickerValueConverter.cs`) for Umbraco's ModelsBuilder for smooth retrieval of strongly typed country data in templates or views.
+
+### Building from source
+
+The C# project and the client bundle build separately:
+
+```bash
+cd client
+npm ci --legacy-peer-deps
+npm run build          # outputs to ../wwwroot
+cd ..
+dotnet build -c Release
+```
+
+`npm run watch` rebuilds the bundle on change while developing.
 
 ---
 
