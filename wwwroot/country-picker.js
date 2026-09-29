@@ -52,7 +52,10 @@ var m = class extends s {
 		let n = t.toLowerCase();
 		this._filtered = this._countries.filter((e) => e.countryName.toLowerCase().includes(n) || e.id.toLowerCase() === n);
 	}
-	#r(e) {
+	#r() {
+		this._input && this.value && !this._input.search && (this._input.value = this.value);
+	}
+	#i(e) {
 		let t = e.currentTarget.value, n = typeof t == "string" && t.length ? t : void 0;
 		n !== this.value && (this.value = n, this.dispatchEvent(new c()));
 	}
@@ -65,8 +68,8 @@ var m = class extends s {
 				?readonly=${this.readonly}
 				?required=${this.mandatory}
 				@search=${this.#n}
-				@change=${this.#r}>
-				<uui-combobox-list>
+				@change=${this.#i}>
+				<uui-combobox-list @inner-slot-change=${this.#r}>
 					${a(this._filtered, (e) => e.id, (e) => n`
 							<uui-combobox-list-option .value=${e.id} .displayValue=${e.countryName}>
 								${e.countryName}

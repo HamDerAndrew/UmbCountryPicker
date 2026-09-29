@@ -69,6 +69,14 @@ export default class UmbCountryPickerElement extends UmbLitElement implements Um
 		);
 	}
 
+	#onOptionsChange() {
+		// uui-combobox only resolves its display text when its value is set. The saved value arrives before the
+		// countries are fetched, so re-apply it once the options exist, otherwise the input stays blank on load.
+		// Skipped while searching so the text the editor is typing is left alone.
+		if (!this._input || !this.value || this._input.search) return;
+		this._input.value = this.value;
+	}
+
 	#onChange(event: Event) {
 		// uui-combobox types its value as a form value; this editor only ever stores an ISO code string.
 		const rawValue = (event.currentTarget as UUIComboboxElement).value;
@@ -89,7 +97,7 @@ export default class UmbCountryPickerElement extends UmbLitElement implements Um
 				?required=${this.mandatory}
 				@search=${this.#onSearch}
 				@change=${this.#onChange}>
-				<uui-combobox-list>
+				<uui-combobox-list @inner-slot-change=${this.#onOptionsChange}>
 					${repeat(
 						this._filtered,
 						(country) => country.id,
