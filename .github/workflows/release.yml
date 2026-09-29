@@ -34,6 +34,12 @@ jobs:
         cache-dependency-path: client/package-lock.json
     - name: Set VERSION variable from tag
       run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+    - name: Stamp VERSION into umbraco-package.json
+      # The backoffice shows this version under Settings > Packages, so keep it in step with the tag.
+      run: |
+        jq --arg version "$VERSION" '.version = $version' wwwroot/umbraco-package.json > umbraco-package.tmp
+        mv umbraco-package.tmp wwwroot/umbraco-package.json
+        grep '"version"' wwwroot/umbraco-package.json
     - name: Install client dependencies
       run: npm ci --legacy-peer-deps
       working-directory: client
