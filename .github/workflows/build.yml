@@ -1,0 +1,37 @@
+# Builds the client bundle and the NuGet package on pull requests, without publishing.
+name: Build
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.x
+        cache: npm
+        cache-dependency-path: client/package-lock.json
+    - name: Install client dependencies
+      run: npm ci
+      working-directory: client
+    - name: Build client
+      run: npm run build
+      working-directory: client
+    - name: Build
+      run: dotnet build --configuration Release
+    - name: Pack
+      run: dotnet pack --configuration Release --no-build --output ./artifacts

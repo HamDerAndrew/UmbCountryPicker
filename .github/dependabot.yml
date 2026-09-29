@@ -1,0 +1,38 @@
+# Keeps NuGet, npm and GitHub Actions dependencies up to date.
+# Umbraco major versions are upgraded manually, so Dependabot only proposes 17.x minor/patch bumps.
+version: 2
+updates:
+  - package-ecosystem: nuget
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "Umbraco.Cms.*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      nuget-minor-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: /client
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "@umbraco-cms/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@umbraco-ui/*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      npm-minor-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      actions-minor-patch:
+        update-types: [minor, patch]
