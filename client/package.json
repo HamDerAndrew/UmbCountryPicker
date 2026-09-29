@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "typecheck": "tsc --noEmit",
     "watch": "vite build --watch"
   },
   "devDependencies": {

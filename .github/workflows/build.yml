@@ -28,6 +28,9 @@ jobs:
     - name: Install client dependencies
       run: npm ci
       working-directory: client
+    - name: Type-check client
+      run: npm run typecheck
+      working-directory: client
     - name: Build client
       run: npm run build
       working-directory: client
